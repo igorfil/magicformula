@@ -1,6 +1,7 @@
 import argparse
 from datetime import datetime
 import os
+from os import confstr
 
 from data_source.finnhub import Finnhub
 from data_source.finnhub_data_adapter import map_stock_data, map_stock_price, map_financial_data
@@ -10,6 +11,7 @@ from reporter.html_reporter import create_report
 
 def parse_args():
     defaults = {
+        "api_key": None,
         "force_update": False,
         "min_roa": 20.0,
         "min_pe": 4.0,
@@ -42,11 +44,15 @@ def show_report(report):
 def main():
     config = parse_args()
 
-    f = Finnhub(config["api_key"], map_stock_data, map_stock_price, map_financial_data)
+    if config["api_key"]:
+        f = Finnhub(config["api_key"], map_stock_data, map_stock_price, map_financial_data)
+    else:
+        f = None
     r = StocksRegistry(f, os.path.abspath("data/stocks.json"))
 
-    r.load_stocks(["US"])
-    r.enrich_stock_data(force_update=config["force_update"])
+    if config["api_key"]:
+        r.load_stocks(["US"])
+        r.enrich_stock_data(force_update=config["force_update"])
 
     magic_list = calculate_magic_list(r.stocks, float(config["min_roa"]), float(config["min_pe"]), float(config["max_pe"]), int(config["max_cap"]))
 

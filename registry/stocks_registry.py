@@ -76,12 +76,12 @@ class StocksRegistry:
             or ((not market_cap_below_threshold(company_data, 1000)) and int(company_data.get("last_update", 0)) + 90 * day < self._now())
 
     def _save(self):
-        print("Saving data")
+        print("Saving data to disk")
 
         with open(self.data_file, 'w') as fp:
             json.dump(self.stocks, fp, indent=4)
 
     def _load(self):
-        print("Loading data")
+        print("Loading data from disk")
         with open(self.data_file, 'r') as fp:
             self.stocks = json.load(fp)
