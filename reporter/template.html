@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+            img.logo {
+                width: 35px;
+                height: 35px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="jumbotron text-center">
+            <h1>Stocks Magic List</h1>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    {{chart}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Company</th>
+                            <th>Country</th>
+                            <th>Industry</th>
+                            <th>Ticker</th>
+                            <th>vs S&P500</th>
+                            <th>Market Cap</th>
+                            <th>P/E</th>
+                            <th>ROA</th>
+                            <th>52w low</th>
+                            <th>price</th>
+                            <th>52w high</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in stocks %}
+                            <tr>
+                                <td>
+                                    {% if s.logo|length %}
+                                        <img class="logo" src="{{s.logo}}">
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{s.url}}">{{s.name}}</a>
+                                </td>
+                                <td>
+                                    {{s.country}}
+                                </td>
+                                <td>
+                                    {{s.industry}}
+                                </td>
+                                <td>
+                                    {{s.ticker}}
+                                </td>
+                                <td>
+                                    {{s.vs_snp500}}
+                                </td>
+                                <td>
+                                    {{s.market_cap}}
+                                </td>
+                                <td>
+                                    {{s.pe}}
+                                </td>
+                                <td>
+                                    {{s.roa}}
+                                </td>
+                                <td>
+                                    {{s.price_low}}
+                                </td>
+                                <td>
+                                    {{s.price}}
+                                </td>
+                                <td>
+                                    {{s.price_high}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
