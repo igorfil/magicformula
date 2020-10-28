@@ -30,3 +30,11 @@ All ideas belong to the author of the book. This implementation is just an illus
    ```
 
 By default, runs on sample data provided with code. Specify Finnhub API key to download new stocks data.
+```
+python main.py --api-key <YOUR_API_KEY>
+```
+
+Check help page for additional parameters
+```
+python main.py --help
+```
