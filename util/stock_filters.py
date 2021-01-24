@@ -13,7 +13,7 @@ def market_cap_below_threshold(stock, threshold):
     return market_cap is not None and market_cap != "" and float(market_cap) <= threshold
 
 def is_allowed_country(stock):
-    allowed_countries=["CA", "US", ""]
+    allowed_countries=["CA", "US"]
     return stock.get("country", "") in allowed_countries
 
 def has_wrong_type_in_name(stock):
@@ -21,7 +21,7 @@ def has_wrong_type_in_name(stock):
     regex = r"^.*( Fund| Trust| ETF| crypto| bitcoin| REIT).*$"
     matches = re.search(regex, name, re.IGNORECASE)
 
-    if matches:
+    if matches or '#' in name:
         return True
     return False
 

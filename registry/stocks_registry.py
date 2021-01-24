@@ -3,7 +3,7 @@ import time
 
 from util.stock_filters import *
 
-blacklist=["FTV#", "VNT#"]
+blacklist=["FTV#", "VNT#", "AAN#", "PRG#", "SNX#", "VIV#", "AIRC#", "AIV#", "CTEST.V"]
 
 class StocksRegistry:
     def __init__(self, data_source, data_file):
@@ -17,11 +17,15 @@ class StocksRegistry:
 
         for exchange in exchanges:
             exchange_stocks = self.data_source.get_stocks(exchange)
+            print("Loaded {} {} stocks".format(len(exchange_stocks), exchange))
+            types=[s["type"] for s in exchange_stocks]
             for stock in exchange_stocks:
                 ticker = stock["symbol"]
                 if ticker not in self.stocks.keys() and \
-                    stock["type"] != "ETF":
+                    stock["type"] == "Common Stock" and \
+                    "#" not in ticker:
                     new_stocks[ticker] = {}
+            print("Found {} new stocks".format(len(new_stocks)))
 
         self.stocks = {**self.stocks, **new_stocks}
         self._save()
