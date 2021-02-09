@@ -3,7 +3,7 @@ import time
 
 from util.stock_filters import *
 
-blacklist=["FTV#", "VNT#", "AAN#", "PRG#", "SNX#", "VIV#", "AIRC#", "AIV#", "CTEST.V"]
+blacklist=["FTV#", "VNT#", "AAN#", "PRG#", "SNX#", "VIV#", "AIRC#", "AIV#", "CTEST.V", "MKC.V", "CTEST.L"]
 
 class StocksRegistry:
     def __init__(self, data_source, data_file):
